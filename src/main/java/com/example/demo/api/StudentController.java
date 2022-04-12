@@ -58,16 +58,16 @@ public class StudentController {
     @RequestMapping(value = "/students/{id}", method = RequestMethod.GET)
     public ResponseEntity<Student> getStudentsv3(@PathVariable Long id) {
         LOGGER.info("Invocando al servicio REST para obtener el estudiante con id: {}", id);
-        Student studentList = studentRepository.getStudentById(id);
-        LOGGER.info("Invocacion exitosa para obtener el estudiantes {}", studentList);
-        return new ResponseEntity<>(studentList, HttpStatus.OK);
+        Student student = studentRepository.getStudentById(id);
+        LOGGER.info("Invocacion exitosa para obtener el estudiantes {}", student);
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
 
     @RequestMapping(value= "/students", method = RequestMethod.POST)
-    public ResponseEntity<String> saveStudent(@RequestBody Student student) {
+    public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
         LOGGER.info("Invocando al servicio REST para registrar un estudiante con la siguiente información: {}", student);
-        studentRepository.save(student);
-        return new ResponseEntity<>("Registro exitoso", HttpStatus.OK);
+        Student result = studentRepository.save(student);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
