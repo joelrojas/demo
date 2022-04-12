@@ -1,7 +1,18 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -22,26 +33,28 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "student_id")
-    private Long studentId;
+    private Integer studentId;
     @Column(name = "name")
     private String name;
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "email")
     private String email;
+    @OneToMany(mappedBy = "studentId", fetch = FetchType.LAZY)
+    private List<StudentSubject> studentSubjectList;
 
     public Student() {
     }
 
-    public Student(Long studentId) {
+    public Student(Integer studentId) {
         this.studentId = studentId;
     }
 
-    public Long getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Long studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
@@ -67,6 +80,14 @@ public class Student implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<StudentSubject> getStudentSubjectList() {
+        return studentSubjectList;
+    }
+
+    public void setStudentSubjectList(List<StudentSubject> studentSubjectList) {
+        this.studentSubjectList = studentSubjectList;
     }
 
     @Override
