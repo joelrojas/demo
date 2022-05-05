@@ -3,7 +3,7 @@ spring:
     name: school
   datasource:
 #    platform: postgres
-    url: ${URL_DATABASE:jdbc:postgresql://192.168.0.159:5432/school_db}
+    url: ${URL_DATABASE:jdbc:postgresql://localhost:5432/school_db}
     username: postgres
     password: postgres
   jpa:
@@ -22,6 +22,32 @@ spring:
     port: ${RABBITMQ_PORT:5672}
 
 server:
-  port: 8080
+  port: 8070
 
 key: ABCDabcd1234
+
+
+keycloak:
+  auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL:http://localhost:8080/auth}
+  autodetect-bearer-only: true
+  resource: farmacia
+  credentials:
+    secret: bd327a20-d3c4-4f11-a90c-ee065b3073e6
+  realm: 6to
+  securityConstraints:
+    - authRoles:
+        - ADMIN
+      security-collections:
+        -   omitted-methods:
+              - OPTIONS
+      securityCollections:
+        - name: REST API ADMIN
+          patterns:
+            - /v1/api/teacher/*
+            - /v1/api/subject/*
+            - /v1/api/admin/*
+    - securityCollections:
+        - patterns:
+            - /v1/api/students/*
+  ssl-required: external
+  use-resource-role-mappings: false
