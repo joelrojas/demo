@@ -11,5 +11,8 @@ ENV RABBITMQ_HOST "localhost"
 ENV RABBITMQ_USERNAME "guest"
 ENV RABBITMQ_PASSWORD "guest"
 ENV RABBITMQ_PORT "5672"
+ENV EUREKA_URI "http://localhost:8761/eureka"
+ENV SERVER_PORT 9000
+ENV CONFIG_URI "http://localhost:8888"
 
 ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.demo.MsSchoolApplication"]
